@@ -7,3 +7,20 @@
 html {
     background-color: slategray;
 }
+
+.managerContainer {
+    margin: auto;
+    text-align: center;
+}
+
+.card-header {
+    display: inline-block;
+}
+
+.container {
+    padding: 50px;
+}
+
+.profile {
+    margin: 20px;
+}

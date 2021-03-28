@@ -7,13 +7,36 @@ let interns = [];
 // Native Modules
 const fs = require("fs");
 const util = require("util");
-const writeFileAsync = util.promisify(fs.writeFile);
+const appendFileAsync = util.promisify(fs.appendFile);
 
 // Personal Modules
 const Employee = require('./lib/Employee')
 const Manager = require('./lib/Manager')
 const Engineer = require('./lib/Engineer')
 const Intern = require('./lib/Intern')
+
+function writeHTML () {
+
+    managerInnerHTML = 
+    `<div class="card column profile">
+    <header class="card-header">
+    ${manager.getRole()}
+    </header>
+    <div class="card-content">
+    <div class="content">
+    <p>Name: ${manager.name}</p>
+    <p>ID: ${manager.id}</p>
+    <p>Email: ${manager.email}</p>
+    </div>
+    </div>
+    </div>`
+
+    $("managerContainer").innerHTML(managerInnerHTML);
+
+    if (engineers.length > 0) {
+        
+    }
+}
 
 // Function to ask user for information about the Manager
 function addManager() {
@@ -120,29 +143,6 @@ function addIntern() {
     ])
 }
 
-
-
-// function generateHTML(answers) {
-//     return ``;
-// }
-
-// promptUser()
-//     .then(function (answers) {
-
-//     })
-
-// promptUser()
-//     .then(function (answers) {
-//         const html = generateHTML(answers);
-//         return writeFileAsync("exampleREADME.md", html);
-//     })
-//     .then(function () {
-//         console.log("Successfully wrote to HTML");
-//     })
-//     .catch(function (err) {
-//         console.log(err);
-//     });
-
 function handleProgression(answer) {
     if (answer === "I want to add an Engineer") {
         addEngineer()
@@ -153,14 +153,33 @@ function handleProgression(answer) {
             })
     } else if (answer === "I want to add an Intern") {
         addIntern()
-            .then(function (answers) {
-                interns.push(answer)
-                handleProgression(answers.progress);
+            .then(function (answer) {
+                let intern = new Intern(answer.name, answer.id, answer.email, answer.school)
+                interns.push(intern)
+                handleProgression(answer.progress);
             })
     } else {
         console.log(manager);
         console.log(engineers);
-        return;
+        console.log(interns);
+        console.log(`the second engineer's name is ${engineers[1].name}`)
+        // html = createElements(manager)
+        const managerContainer = $("managerContainer")
+
+managerContainer.innerHTML = 
+`<div class="card column profile">
+<header class="card-header">
+${manager.getRole()}
+</header>
+<div class="card-content">
+<div class="content">
+<p>Name: ${manager.name}</p>
+<p>ID: ${manager.id}</p>
+<p>Email: ${manager.email}</p>
+</div>
+</div>
+</div>`
+        return $("body").appendFileAsync("teamList.html", managerContainer.textContent);
     }
 }
 
@@ -169,6 +188,9 @@ function init() {
         .then(function (answers) {
             manager = new Manager(answers.name, answers.id, answers.email, answers.number)
             handleProgression(answers.progress)
+            .then(function () {
+                writeHTML();
+            })
         })
         .catch(function (err) {
             console.log(err);
