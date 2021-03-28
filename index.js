@@ -1,5 +1,8 @@
 // Node Modules
 const inquirer = require('inquirer');
+let manager;
+let engineers = [];
+let interns = [];
 
 // Native Modules
 const fs = require("fs");
@@ -12,74 +15,115 @@ const Manager = require('./lib/Manager')
 const Engineer = require('./lib/Engineer')
 const Intern = require('./lib/Intern')
 
-function promptUser() {
+// Function to ask user for information about the Manager
+function addManager() {
     return inquirer.prompt([
         {
             type: "input",
-            name: "managerName",
+            name: "name",
             message: "What is the name of the team manager?"
         },
         {
             type: "input",
-            name: "managerId",
+            name: "id",
             message: "What is the ID of the team manager?"
         },
         {
             type: "input",
-            name: "managerEmail",
+            name: "email",
             message: "What is the email address of the team manager?"
         },
         {
             type: "input",
-            name: "managerNumber",
+            name: "number",
             message: "What is the phone number of the team manager?"
         },
         {
             type: "list",
-            name: "managerName",
+            name: "progress",
             message: "What do you want to do next?",
             choices: [
-                ""
+                "I want to add an Engineer",
+                "I want to add an Intern",
+                "I am done"
+            ]
+        }
+    ])
+}
+
+// Function to ask user for information about an Engineer
+function addEngineer() {
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is the name of the Engineer?"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "What is the ID of the Engineer?"
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "What is the email address of the Engineer?"
+        },
+        {
+            type: "input",
+            name: "github",
+            message: "What is the phone number of the team manager?"
+        },
+        {
+            type: "list",
+            name: "progress",
+            message: "What do you want to do next?",
+            choices: [
+                "I want to add an Engineer",
+                "I want to add an Intern",
+                "I am done"
+            ]
+        }
+    ])
+}
+
+// Function to add information about an Intern
+function addIntern() {
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is the name of the Intern?"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "What is the ID of the Intern?"
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "What is the email address of the Intern?"
+        },
+        {
+            type: "input",
+            name: "school",
+            message: "What is the school of the Intern?"
+        },
+        {
+            type: "list",
+            name: "progress",
+            message: "What do you want to do next?",
+            choices: [
+                "I want to add an Engineer",
+                "I want to add an Intern",
+                "I am done"
             ]
         }
     ])
 }
 
 
-
-
-
-
-// function promptUser() {
-
-    // return inquirer.prompt([{
-    //         type: "input",
-    //         name: "title",
-    //         message: "Who is the team Manager?"
-    //     }, 
-    //     {
-    //         type: "input",
-    //         name: "id",
-    //         message: "What is the Employee's ID?"
-    //     },
-    //     {
-    //         type: "input",
-    //         name: "email",
-    //         message: "What is the Employee's email?"
-    //     },
-    //     {
-    //         type: "input",
-    //         name: "number",
-    //         message: "What is their office number?"
-    //     },
-    //     {
-    //         type: "list",
-    //         name: "continue",
-    //         message: "What is their office number?"
-    //     }
-        
-    // ]);
-// }
 
 // function generateHTML(answers) {
 //     return ``;
@@ -102,10 +146,30 @@ function promptUser() {
 //         console.log(err);
 //     });
 
-function init() {
-    promptUser()
-    .then(function (answers) {
+function handleProgression(answer) {
+    if (answer === "I want to add an Engineer") {
+        addEngineer()
+        .then(function (answer) {
+            engineers.push(answers)
+            handleProgression(answer.progress)
+        })
+    } else if (answer === "I want to add an Intern") {
+        addIntern()
+        .then(function (answers) {
+            interns.push(answer)
+            handleProgression(answers.progress);
+        })
+    } else {
+        return;
+    }
+}
 
+function init() {
+    addManager()
+    .then(function (answers) {
+        manager = answers
+        handleProgression(answers.progress)
+        console.log(manager)
     })
 }
 
