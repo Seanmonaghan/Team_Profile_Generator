@@ -17,8 +17,7 @@ const Intern = require('./lib/Intern')
 
 // Function to ask user for information about the Manager
 function addManager() {
-    return inquirer.prompt([
-        {
+    return inquirer.prompt([{
             type: "input",
             name: "name",
             message: "What is the name of the team manager?"
@@ -53,8 +52,7 @@ function addManager() {
 
 // Function to ask user for information about an Engineer
 function addEngineer() {
-    return inquirer.prompt([
-        {
+    return inquirer.prompt([{
             type: "input",
             name: "name",
             message: "What is the name of the Engineer?"
@@ -89,8 +87,7 @@ function addEngineer() {
 
 // Function to add information about an Intern
 function addIntern() {
-    return inquirer.prompt([
-        {
+    return inquirer.prompt([{
             type: "input",
             name: "name",
             message: "What is the name of the Intern?"
@@ -149,28 +146,33 @@ function addIntern() {
 function handleProgression(answer) {
     if (answer === "I want to add an Engineer") {
         addEngineer()
-        .then(function (answer) {
-            engineers.push(answers)
-            handleProgression(answer.progress)
-        })
+            .then(function (answer) {
+                let engineer = new Engineer(answer.name, answer.id, answer.email, answer.github)
+                engineers.push(engineer)
+                handleProgression(answer.progress)
+            })
     } else if (answer === "I want to add an Intern") {
         addIntern()
-        .then(function (answers) {
-            interns.push(answer)
-            handleProgression(answers.progress);
-        })
+            .then(function (answers) {
+                interns.push(answer)
+                handleProgression(answers.progress);
+            })
     } else {
+        console.log(manager);
+        console.log(engineers);
         return;
     }
 }
 
 function init() {
     addManager()
-    .then(function (answers) {
-        manager = answers
-        handleProgression(answers.progress)
-        console.log(manager)
-    })
+        .then(function (answers) {
+            manager = new Manager(answers.name, answers.id, answers.email, answers.number)
+            handleProgression(answers.progress)
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
 }
 
 init();
