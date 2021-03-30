@@ -1,3 +1,7 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
 #background-banner {
     background-color: black;
     text-align: center;
@@ -10,16 +14,18 @@ html {
 
 .card {
     width: 350px;
-    
+
 }
 
-.managerContainer {
+.columns {
     margin: auto;
     text-align: center;
 }
 
 .card-header {
     display: inline-block;
+    text-align: auto;
+    font-weight: bold;
 }
 
 .container {
