@@ -72,7 +72,7 @@ function addEngineer() {
         {
             type: "input",
             name: "github",
-            message: "What is the phone number of the team manager?"
+            message: "What is the Github of the Engineer?"
         },
         {
             type: "list",
@@ -133,7 +133,7 @@ console.log(manager)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>framework</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="src/styles.css">
 </head>
 
 <body>
@@ -141,7 +141,7 @@ console.log(manager)
         <h1 class="title has-text-white">Programming Team</h1>
     </header>
 
-    <main class = 'managerContainer'>
+    <main class = 'managerContainer columns'>
         
         <div class="card column profile">
             <header class="card-header">
@@ -151,7 +151,7 @@ console.log(manager)
                 <div class="content">
                     <p>Name: ${manager.name}</p>
                     <p>ID: ${manager.id}</p>
-                    <p>Email: <a href = "mailto:${manager.email}"></a></p>
+                <p>Email: <a href = "mailto:${manager.email}">${manager.email}</a></p>
                 </div>
             </div>
         </div>
@@ -170,16 +170,34 @@ function generateEngineersHTML(engineer) {
             <div class="content">
             <p>Name: ${engineer.name}</p>
             <p>ID: ${engineer.id}</p>
-            <p>Github: <a href ="www.github.com/${engineer.email}"></a></p>
+            <p>Github: <a href ="www.github.com/${engineer.github}">${engineer.github}</a></p>
         </div>
     </div>
-        `)}
+    </div>
+        `).join('')}
        
 `       
 };
 
 function generateInternsHTML(interns) {
     console.log(interns)
+    return `
+        ${interns.map((interns) => 
+        `<div class="card column profile">
+        <header class="card-header">
+            ${interns.getRole()}
+        </header>
+        <div class="card-content">
+            <div class="content">
+            <p>Name: ${interns.name}</p>
+            <p>ID: ${interns.id}</p>
+            <p>School : ${interns.school}</p>
+        </div>
+    </div>
+    </div>
+        `).join('')}
+       
+`       
 
 };
 
@@ -213,13 +231,13 @@ async function handleProgression(answer) {
             })
     } else {
         const managerHTML = generateManagerHTML(manager)
-        await appendFileAsync("test.html", managerHTML)
+        await appendFileAsync("team.html", managerHTML)
         const engineerHTML = generateEngineersHTML(engineers)
-        await appendFileAsync("test.html", engineerHTML)
-        // const internHTML = generateInternsHTML(interns)
-        // await appendFileAsync("test.html", internHTML)
+        await appendFileAsync("team.html", engineerHTML)
+        const internHTML = generateInternsHTML(interns)
+        await appendFileAsync("team.html", internHTML)
         const footerHTML = generateFooterHTML()
-        await appendFileAsync("test.html", footerHTML)
+        await appendFileAsync("team.html", footerHTML)
     }
 }
 

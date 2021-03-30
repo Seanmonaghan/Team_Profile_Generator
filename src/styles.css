@@ -8,6 +8,11 @@ html {
     background-color: slategray;
 }
 
+.card {
+    width: 350px;
+    
+}
+
 .managerContainer {
     margin: auto;
     text-align: center;
