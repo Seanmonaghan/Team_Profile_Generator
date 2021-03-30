@@ -5,38 +5,17 @@ let engineers = [];
 let interns = [];
 
 // Native Modules
+
 const fs = require("fs");
 const util = require("util");
 const appendFileAsync = util.promisify(fs.appendFile);
 
 // Personal Modules
-const Employee = require('./lib/Employee')
+
 const Manager = require('./lib/Manager')
 const Engineer = require('./lib/Engineer')
 const Intern = require('./lib/Intern')
 
-function writeHTML () {
-
-    managerInnerHTML = 
-    `<div class="card column profile">
-    <header class="card-header">
-    ${manager.getRole()}
-    </header>
-    <div class="card-content">
-    <div class="content">
-    <p>Name: ${manager.name}</p>
-    <p>ID: ${manager.id}</p>
-    <p>Email: ${manager.email}</p>
-    </div>
-    </div>
-    </div>`
-
-    $("managerContainer").innerHTML(managerInnerHTML);
-
-    if (engineers.length > 0) {
-        
-    }
-}
 
 // Function to ask user for information about the Manager
 function addManager() {
@@ -143,7 +122,81 @@ function addIntern() {
     ])
 }
 
-function handleProgression(answer) {
+function generateManagerHTML(manager) {
+console.log(manager)
+    return `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>framework</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header id="background-banner">
+        <h1 class="title has-text-white">Programming Team</h1>
+    </header>
+
+    <main class = 'managerContainer'>
+        
+        <div class="card column profile">
+            <header class="card-header">
+                ${manager.getRole()}
+            </header>
+            <div class="card-content">
+                <div class="content">
+                    <p>Name: ${manager.name}</p>
+                    <p>ID: ${manager.id}</p>
+                    <p>Email: <a href = "mailto:${manager.email}"></a></p>
+                </div>
+            </div>
+        </div>
+`;
+}
+
+function generateEngineersHTML(engineer) {
+    console.log(engineer)
+    return `
+        ${engineer.map((engineer) => 
+        `<div class="card column profile">
+        <header class="card-header">
+            ${engineer.getRole()}
+        </header>
+        <div class="card-content">
+            <div class="content">
+            <p>Name: ${engineer.name}</p>
+            <p>ID: ${engineer.id}</p>
+            <p>Github: <a href ="www.github.com/${engineer.email}"></a></p>
+        </div>
+    </div>
+        `)}
+       
+`       
+};
+
+function generateInternsHTML(interns) {
+    console.log(interns)
+
+};
+
+function generateFooterHTML() {
+    return `</main>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous">
+    </script>
+    <script src="index.js"></script>
+</body>
+
+</html>`
+
+}
+
+async function handleProgression(answer) {
     if (answer === "I want to add an Engineer") {
         addEngineer()
             .then(function (answer) {
@@ -159,42 +212,26 @@ function handleProgression(answer) {
                 handleProgression(answer.progress);
             })
     } else {
-        console.log(manager);
-        console.log(engineers);
-        console.log(interns);
-        console.log(`the second engineer's name is ${engineers[1].name}`)
-        // html = createElements(manager)
-        const managerContainer = $("managerContainer")
-
-managerContainer.innerHTML = 
-`<div class="card column profile">
-<header class="card-header">
-${manager.getRole()}
-</header>
-<div class="card-content">
-<div class="content">
-<p>Name: ${manager.name}</p>
-<p>ID: ${manager.id}</p>
-<p>Email: ${manager.email}</p>
-</div>
-</div>
-</div>`
-        return $("body").appendFileAsync("teamList.html", managerContainer.textContent);
+        const managerHTML = generateManagerHTML(manager)
+        await appendFileAsync("test.html", managerHTML)
+        const engineerHTML = generateEngineersHTML(engineers)
+        await appendFileAsync("test.html", engineerHTML)
+        // const internHTML = generateInternsHTML(interns)
+        // await appendFileAsync("test.html", internHTML)
+        const footerHTML = generateFooterHTML()
+        await appendFileAsync("test.html", footerHTML)
     }
 }
 
-function init() {
+async function init() {
     addManager()
         .then(function (answers) {
             manager = new Manager(answers.name, answers.id, answers.email, answers.number)
             handleProgression(answers.progress)
-            .then(function () {
-                writeHTML();
-            })
         })
         .catch(function (err) {
             console.log(err);
-        });
+        })
 }
 
 init();
