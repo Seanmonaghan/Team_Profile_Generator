@@ -32,7 +32,7 @@ Simply clone this project to your local computer and you should be good to go! A
 
 ## Site Overview
 
-![Video Link to Application Tests](<iframe src="https://drive.google.com/file/d/1LZOV-ecCj8-AxNepbPV8jxMx03kBZikh/preview" width="640" height="480"></iframe>)
+[Video Link to Application Tests](<iframe src="https://drive.google.com/file/d/1LZOV-ecCj8-AxNepbPV8jxMx03kBZikh/preview" width="640" height="480"></iframe>)
 
 To introduce the application, the above video will run through the different modules
 that were created to create classes for Employee, Manager, Engineer and Intern.  The
@@ -60,9 +60,7 @@ program will execute the function to generate an HTML page by appending various 
 page.  
 
 
-
-[Generate Engineer Code Snippet](images/generate.png)
-
+![Generate Engineer Code Snippet](images/generate.png)
 
 
 The engineer and intern loops use the javascript .map() feature of javascript to loop through however
@@ -74,7 +72,7 @@ what the final product looks like, you can follow this link to the HTML page tha
 video demonstration and test for yourself that the links to the email and github pages are functional.  
 
 
-[HTML PAGE](./team.html)
+[HTML PAGE](https://seanmonaghan.github.io/Team_Profile_Generator/team.html)
 
 ## License
 
