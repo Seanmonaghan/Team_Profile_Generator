@@ -32,7 +32,7 @@ Simply clone this project to your local computer and you should be good to go! A
 
 ## Site Overview
 
-[Video Link to Application Tests](<iframe src="https://drive.google.com/file/d/1LZOV-ecCj8-AxNepbPV8jxMx03kBZikh/preview" width="640" height="480"></iframe>)
+[Video Link to Application Tests](https://drive.google.com/file/d/1LZOV-ecCj8-AxNepbPV8jxMx03kBZikh/view)
 
 To introduce the application, the above video will run through the different modules
 that were created to create classes for Employee, Manager, Engineer and Intern.  The
@@ -54,6 +54,8 @@ to properly run the application in Node.js.  Once the programm is called in the 
 the 'node index.js' command, it will begin prompting the user for a series of questions starting
 with the manager's information.
 
+![Inquirer Prompts Code Snippet](images/inquirer.png)
+![Hanlder function Code Snippet](images/handle.png)
 It will then ask whether the user wants to add an engineer or an intern, which they may do as many
 times as they wish.  The loop will end when the user selected that they are done.  After that, the 
 program will execute the function to generate an HTML page by appending various elements to a team.html
