@@ -56,6 +56,8 @@ with the manager's information.
 
 ![Inquirer Prompts Code Snippet](images/inquirer.png)
 ![Hanlder function Code Snippet](images/handle.png)
+
+
 It will then ask whether the user wants to add an engineer or an intern, which they may do as many
 times as they wish.  The loop will end when the user selected that they are done.  After that, the 
 program will execute the function to generate an HTML page by appending various elements to a team.html
@@ -87,7 +89,7 @@ If you would like to contribute to this project feel free to send requests.  I o
 
 ## Tests
 
-![Video Link to Application Tests](<iframe src="https://drive.google.com/file/d/1LZOV-ecCj8-AxNepbPV8jxMx03kBZikh/preview" width="640" height="480"></iframe>)
+[Video Link to Application Tests](https://drive.google.com/file/d/1LZOV-ecCj8-AxNepbPV8jxMx03kBZikh/view)
 
 Here is another link to the application tests also included in the site overview.  Just a reminder that you will need to have the Jest module installed for the tests to run properly.  They should be included, but if not just run an 'npm install' and that should resolve the issue.  
 
