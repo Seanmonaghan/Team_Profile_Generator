@@ -174,7 +174,7 @@ function generateEngineersHTML(engineer) {
         <div class="card-content">
             <div class="content">
             <p>ID: ${engineer.id}</p>
-            <p>Email: ${engineer.email}</p>
+            <p>Email: <a href = "mailto:${engineer.email}">${engineer.email}</a></p>
             <p>Github: <a href ="https://www.github.com/${engineer.github}">${engineer.github}</a></p>
         </div>
     </div>
@@ -196,7 +196,7 @@ function generateInternsHTML(interns) {
         <div class="card-content">
             <div class="content">
             <p>ID: ${interns.id}</p>
-            <p>Email: ${interns.email}</p>
+            <p>Email: <a href = "mailto:${interns.email}">${interns.email}</a></p>
             <p>School : ${interns.school}</p>
         </div>
     </div>

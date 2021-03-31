@@ -52,8 +52,8 @@ describe("Employee", () => {
             expect (testEmployee.getId()).toBe(testId);
         });
     })
-    describe('get id', () => {
-        it("should get the id of the employee: 10", () => {
+    describe('get email', () => {
+        it("should get the email of the employee: 10", () => {
             // Arrange
             let testEmail = "Their Email is stantheman@gmail.com"
             
