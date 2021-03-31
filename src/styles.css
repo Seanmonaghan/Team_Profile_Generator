@@ -2,14 +2,14 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+html {
+    background-color: slategray;
+}
+
 #background-banner {
     background-color: black;
     text-align: center;
     padding: 50px
-}
-
-html {
-    background-color: slategray;
 }
 
 .card {
@@ -17,15 +17,15 @@ html {
 
 }
 
-.columns {
-    margin: auto;
-    text-align: center;
-}
-
 .card-header {
     display: inline-block;
     text-align: auto;
     font-weight: bold;
+}
+
+.columns {
+    margin: auto;
+    text-align: center;
 }
 
 .container {

@@ -44,8 +44,8 @@ function addManager() {
             name: "progress",
             message: "What do you want to do next?",
             choices: [
-                "I want to add an Engineer",
-                "I want to add an Intern",
+                "Add an Engineer",
+                "Add an Intern",
                 "I am done"
             ]
         }
@@ -79,8 +79,8 @@ function addEngineer() {
             name: "progress",
             message: "What do you want to do next?",
             choices: [
-                "I want to add an Engineer",
-                "I want to add an Intern",
+                "Add an Engineer",
+                "Add an Intern",
                 "I am done"
             ]
         }
@@ -114,16 +114,16 @@ function addIntern() {
             name: "progress",
             message: "What do you want to do next?",
             choices: [
-                "I want to add an Engineer",
-                "I want to add an Intern",
+                "Add an Engineer",
+                "Add an Intern",
                 "I am done"
             ]
         }
     ])
 }
 
+// Generates HTML header and generates card for Manager
 function generateManagerHTML(manager) {
-console.log(manager)
     return `<!DOCTYPE html>
 <html lang="en">
 
@@ -131,7 +131,8 @@ console.log(manager)
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>framework</title>
+    <title>Programming Team</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
@@ -145,15 +146,15 @@ console.log(manager)
 
     <div class = 'managerContainer columns is-centered'>
         
-        <div class="card column is-three-quarters profile">
+        <div class="card column is-two-thirds profile">
             <header class="card-header">
-                ${manager.getRole()}
+            <i class="fas fa-chalkboard-teacher"></i> ${manager.getRole()} - ${manager.name} 
             </header>
             <div class="card-content">
                 <div class="content">
-                    <p>Name: ${manager.name}</p>
                     <p>ID: ${manager.id}</p>
-                <p>Email: <a href = "mailto:${manager.email}">${manager.email}</a></p>
+                    <p>Email: <a href = "mailto:${manager.email}">${manager.email}</a></p>
+                    <p>Office Number: ${manager.number}</p>
                 </div>
             </div>
         </div>
@@ -161,20 +162,20 @@ console.log(manager)
 `;
 }
 
+// Generates card elements for each Engineer
 function generateEngineersHTML(engineer) {
-    console.log(engineer)
     return `
     <div class = "engineerColumns columns is-centered">
         ${engineer.map((engineer) => 
         `<div class="card column is-one-fifth profile">
         <header class="card-header">
-            ${engineer.getRole()}
+        <i class="fab fa-js-square"></i> ${engineer.getRole()} - ${engineer.name}
         </header>
         <div class="card-content">
             <div class="content">
-            <p>Name: ${engineer.name}</p>
             <p>ID: ${engineer.id}</p>
-            <p>Github: <a href ="www.github.com/${engineer.github}">${engineer.github}</a></p>
+            <p>Email: ${engineer.email}</p>
+            <p>Github: <a href ="https://www.github.com/${engineer.github}">${engineer.github}</a></p>
         </div>
     </div>
     </div>
@@ -183,19 +184,19 @@ function generateEngineersHTML(engineer) {
 `       
 };
 
+// Generates card elements for each Intern
 function generateInternsHTML(interns) {
-    console.log(interns)
     return `
     <div class = "internColumns columns is-centered">
         ${interns.map((interns) => 
         `<div class="card column is-one-fifth profile">
         <header class="card-header">
-            ${interns.getRole()}
+        <i class="fas fa-coffee"></i> ${interns.getRole()} - ${interns.name}
         </header>
         <div class="card-content">
             <div class="content">
-            <p>Name: ${interns.name}</p>
             <p>ID: ${interns.id}</p>
+            <p>Email: ${interns.email}</p>
             <p>School : ${interns.school}</p>
         </div>
     </div>
@@ -206,6 +207,7 @@ function generateInternsHTML(interns) {
 
 };
 
+// Generates footer to close out the HTML
 function generateFooterHTML() {
     return `</main>
 
@@ -219,15 +221,16 @@ function generateFooterHTML() {
 
 }
 
+// Handles logic for adding engineers or interns or generated HTML
 async function handleProgression(answer) {
-    if (answer === "I want to add an Engineer") {
+    if (answer === "Add an Engineer") {
         addEngineer()
             .then(function (answer) {
                 let engineer = new Engineer(answer.name, answer.id, answer.email, answer.github)
                 engineers.push(engineer)
                 handleProgression(answer.progress)
             })
-    } else if (answer === "I want to add an Intern") {
+    } else if (answer === "Add an Intern") {
         addIntern()
             .then(function (answer) {
                 let intern = new Intern(answer.name, answer.id, answer.email, answer.school)
@@ -246,6 +249,7 @@ async function handleProgression(answer) {
     }
 }
 
+// Initiates the app on launch and begins inquirer questions
 async function init() {
     addManager()
         .then(function (answers) {

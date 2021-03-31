@@ -66,4 +66,16 @@ describe("Manager", () => {
             expect (testManager.getEmail()).toBe(testEmail);
         });
     })
+    describe('get number', () => {
+        it("should get the number of the Manager: 123456789", () => {
+            // Arrange
+            let testNumber = "Their number is 123456789"
+            
+            // Act
+            const testManager = new Manager("Sally", 10, "Sallythewoman@gmail.com", 123456789);
+
+            // Assert
+            expect (testManager.getNumber()).toBe(testNumber);
+        });
+    })
 })
